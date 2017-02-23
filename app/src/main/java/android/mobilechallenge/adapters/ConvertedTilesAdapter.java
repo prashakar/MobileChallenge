@@ -80,7 +80,7 @@ public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAd
                     // user has inputted data
                     String message = String.format(mContext.getString(R.string.card_details),
                             mInputValue, mInputCurrencyName, convertedValue, currencyName);
-                    Toast.makeText(mContext,  message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                 }
             }
         });

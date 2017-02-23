@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     // send data to fragment
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     // send data to fragment
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
         Log.v(TAG, String.valueOf(test.size()));
 
         exchangeRatesDBHelper.close();
-        
+
         // cancel all network data service jobs
         mJobScheduler.cancelAll();
     }
