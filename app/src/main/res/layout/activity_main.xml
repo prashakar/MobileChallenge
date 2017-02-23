@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,10 +8,63 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="android.mobilechallenge.MainActivity">
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:animateLayoutChanges="true"
+    tools:context="android.mobilechallenge.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:id="@+id/header_message"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"
+        android:text="@string/intro_msg"/>
+
+    <ProgressBar
+        android:id="@+id/loadingProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:visibility="gone"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/currency_value"
+        android:imeOptions="actionDone"
+        android:padding="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="end"
+        android:visibility="gone"
+        android:hint="@string/value_input"/>
+
+    <Spinner
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="100dp"
+        android:id="@+id/currency_name_spinner"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:visibility="gone"
+        android:layout_gravity="end"/>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/currency_view"
+        android:tag="fragment_converted_grid"
+        android:name="android.mobilechallenge.fragments.ConvertedGridFragment"
+        tools:layout="@layout/fragment_converted_grid" />
+</LinearLayout>

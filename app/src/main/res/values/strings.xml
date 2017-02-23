@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MobileChallenge</string>
+    <string name="intro_msg">Hello there! Input a value and select the base currency to get started.</string>
+    <string name="value_input">Value to convert</string>
+    <string name="input_missing">Input a value to begin!</string>
+    <string name="card_details">%1$.2f %2$s = %3$.3f %4$s</string>
 </resources>
