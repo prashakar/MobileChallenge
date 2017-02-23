@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
         JobInfo.Builder builder = new JobInfo.Builder(1, serviceComponent);
 
         // ensure updates are done at most every 30 min
-        builder.setPeriodic(10000);
+        builder.setPeriodic(30 * 60000);
 
         mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
 

@@ -65,7 +65,7 @@ public class ConvertedGridFragment extends Fragment {
         mExchangeRates = exchangeRatesDBHelper.getAllRates();
 
         // use a grid layout manager
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         mConvertedRecyclerView.setLayoutManager(gridLayoutManager);
 
         // use custom item decoration to achieve spacing between grid items

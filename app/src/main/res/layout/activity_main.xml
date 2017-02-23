@@ -52,9 +52,9 @@
     <Spinner
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:dropDownWidth="100dp"
         android:id="@+id/currency_name_spinner"
-        android:background="@drawable/rounded_edittext"
+        android:dropDownWidth="100dp"
+        style="@style/spinner_style"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:visibility="gone"
         android:layout_gravity="end"/>
