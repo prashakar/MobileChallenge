@@ -1,5 +1,5 @@
 #Mobile App Developer Coding Challenge
-## Completed by: Prashakar Prabagaran
+## Completed by: Prashakar Prabagaran - prashakarp@gmail.com - www.prashakar.com
 
 ## Goal:
 
@@ -12,10 +12,10 @@
 - [x] user must be able to select the input currency from the list of supplied values
 
 ### Evaluation:
-- [] App operates as asked
-- [] No crashes or bugs
-- [] SOLID principles
-- [] Code is understandable and maintainable
+- [ ] App operates as asked
+- [ ] No crashes or bugs
+- [ ] SOLID principles
+- [ ] Code is understandable and maintainable
 
 UI Suggestion: Input field with a drop-down currency selector, and a list/grid of converted values below.
 
