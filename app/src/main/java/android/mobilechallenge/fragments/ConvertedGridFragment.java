@@ -14,9 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -74,7 +75,8 @@ public class ConvertedGridFragment extends Fragment {
         mConvertedRecyclerView.addItemDecoration(gridOffsetDecoration);
 
         // adapter for RecyclerView
-        mConvertedTilesAdapter = new ConvertedTilesAdapter(getContext(), null, 0, mExchangeRates);
+        mConvertedTilesAdapter = new ConvertedTilesAdapter(getContext(), null,
+                BigDecimal.ZERO, mExchangeRates);
         // set the adapter
         mConvertedRecyclerView.setAdapter(mConvertedTilesAdapter);
 
@@ -84,13 +86,13 @@ public class ConvertedGridFragment extends Fragment {
      * Method that retrieves all currency exchange rates from the DB then updates UI with
      * converted value.
      *
-     * @param inputValue The value to convert
+     * @param inputValue   The value to convert
      * @param currencyName The name of the input currency
      */
-    public void convert(double inputValue, String currencyName) {
+    public void convert(BigDecimal inputValue, String currencyName) {
 
         // conversion rate from 1 EUR to currencyName
-        double conversionExchangeRate = 0;
+        BigDecimal conversionExchangeRate = BigDecimal.ZERO;
 
         // find exchange rate of the input currency
         for (ExchangeRate exchangeRate : mExchangeRates) {
@@ -102,15 +104,23 @@ public class ConvertedGridFragment extends Fragment {
         }
 
         // find converted value w.r.t EUR
-        double convertedValueEur = inputValue/conversionExchangeRate;
+        BigDecimal convertedValueEur = BigDecimal.ZERO;
+        try {
+            convertedValueEur = inputValue.divide(conversionExchangeRate, 4, RoundingMode.HALF_UP);
+        } catch (ArithmeticException ignored) {
+
+        }
 
         // using the input value and currency, determine converted value for each exchange rate
         for (ExchangeRate exchangeRate : mExchangeRates) {
             // convert into each currency w.r.t. exchange rate
-            double convertedValue = convertedValueEur*exchangeRate.getExchangeRate();
+            BigDecimal convertedValue = convertedValueEur.multiply(exchangeRate.getExchangeRate());
             // store the converted value
-            exchangeRate.setConvertedValue(Double.valueOf(String.
-                    format(Locale.CANADA, "%.3f", convertedValue)));
+            if (convertedValue.compareTo(BigDecimal.ZERO) == 0) {
+                exchangeRate.setConvertedValue(BigDecimal.ZERO);
+            } else {
+                exchangeRate.setConvertedValue(convertedValue.setScale(4, BigDecimal.ROUND_HALF_UP));
+            }
         }
 
         // update adapter

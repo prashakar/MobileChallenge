@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAdapter.ViewHolder> {
@@ -21,7 +22,7 @@ public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAd
 
     private String mInputCurrencyName;
 
-    private double mInputValue;
+    private BigDecimal mInputValue;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -40,7 +41,7 @@ public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAd
 
     // constructor
     public ConvertedTilesAdapter(Context context, String currencyName,
-                                 double inputValue, List<ExchangeRate> mExchangeRates) {
+                                 BigDecimal inputValue, List<ExchangeRate> mExchangeRates) {
         this.mContext = context;
         this.mInputCurrencyName = currencyName;
         this.mInputValue = inputValue;
@@ -64,15 +65,19 @@ public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAd
         ExchangeRate exchangeRate = mExchangeRates.get(position);
 
         final String currencyName = exchangeRate.getCurrencyName();
-        final double convertedValue = exchangeRate.getConvertedValue();
+        final BigDecimal convertedValue = exchangeRate.getConvertedValue();
 
         // populate views with data
         holder.currencyNameText.setText(currencyName);
-        holder.convertedValueText.setText(String.valueOf(convertedValue));
+        if (convertedValue == null) {
+            holder.convertedValueText.setText("-");
+        } else {
+            holder.convertedValueText.setText(String.valueOf(convertedValue));
+        }
         holder.singleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mInputValue == 0) {
+                if (mInputValue.compareTo(BigDecimal.ZERO) == 0) {
                     // no user input yet
                     Toast.makeText(mContext, mContext.getString(R.string.input_missing),
                             Toast.LENGTH_SHORT).show();
@@ -92,7 +97,7 @@ public class ConvertedTilesAdapter extends RecyclerView.Adapter<ConvertedTilesAd
         return mExchangeRates.size();
     }
 
-    public void setInputData(String currencyName, double value) {
+    public void setInputData(String currencyName, BigDecimal value) {
         this.mInputCurrencyName = currencyName;
         this.mInputValue = value;
     }

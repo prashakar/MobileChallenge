@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.mobilechallenge.models.ExchangeRate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ExchangeRatesDBHelper extends SQLiteOpenHelper {
@@ -54,7 +55,7 @@ public class ExchangeRatesDBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String currencyName = cursor.getString(0);
-            double exchangeRate = cursor.getDouble(1);
+            BigDecimal exchangeRate = BigDecimal.valueOf(cursor.getDouble(1));
 
             ExchangeRate rate = new ExchangeRate(currencyName, exchangeRate);
             rates.add(rate);
@@ -66,11 +67,11 @@ public class ExchangeRatesDBHelper extends SQLiteOpenHelper {
         return rates;
     }
 
-    public ExchangeRate addNewRate(String currencyName, double exchangeRate) {
+    public ExchangeRate addNewRate(String currencyName, BigDecimal exchangeRate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("currencyName", currencyName);
-        values.put("exchangeRate", exchangeRate);
+        values.put("exchangeRate", String.valueOf(exchangeRate));
         db.insertOrThrow("rates", null, values);
 
         db.close();

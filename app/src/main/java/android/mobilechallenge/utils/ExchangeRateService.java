@@ -2,9 +2,9 @@ package android.mobilechallenge.utils;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.mobilechallenge.others.FixerIOApiInterface;
 import android.mobilechallenge.R;
 import android.mobilechallenge.models.LatestData;
+import android.mobilechallenge.others.FixerIOApiInterface;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import retrofit2.Call;
@@ -73,7 +74,7 @@ public class ExchangeRateService extends JobService implements Callback<LatestDa
                 String key = iter.next();
                 try {
                     // store the value of the currency
-                    double value = ratesJSONObj.getDouble(key);
+                    BigDecimal value = BigDecimal.valueOf(ratesJSONObj.getDouble(key));
 
                     // now insert into DB
                     exchangeRatesDBHelper.addNewRate(key, value);

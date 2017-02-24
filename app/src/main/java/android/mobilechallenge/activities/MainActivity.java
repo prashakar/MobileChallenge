@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
                 currencyNames.add(key);
                 try {
                     // store the value of the currency
-                    double value = ratesJSONObj.getDouble(key);
+                    BigDecimal value = BigDecimal.valueOf(ratesJSONObj.getDouble(key));
 
                     // now insert into DB
                     exchangeRatesDBHelper.addNewRate(key, value);
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements Callback<LatestDa
 
         // send value if exists
         if (!inputValueStr.isEmpty()) {
-            double inputValue = Double.valueOf(inputValueStr);
+            BigDecimal inputValue = new BigDecimal(inputValueStr);
             mConvertedGridFragment.convert(inputValue, mCurrencyNameSpinner.getSelectedItem().toString());
 
             Log.i(TAG, "Sending user data");
